@@ -1,5 +1,5 @@
 """
-Cette fonction calcule la racine carrée d’un nombre positif en utilisant la méthode de bissection.
+Cet algo calcule la racine carrée d’un nombre positif en utilisant la méthode de bissection.
 Elle itère pour réduire l’intervalle jusqu’à atteindre la précision souhaitée et retourne une approximation de la racine.
 Peut être utilisée pour des exercices numériques ou calculs sans fonctions intégrées.
 """
