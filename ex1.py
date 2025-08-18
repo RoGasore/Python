@@ -1,0 +1,6 @@
+nombre_1 = input("Entrez le premier nombre : ")
+nombre_2 = input("Entrez le deuxième nombre : ")
+somme = int(nombre_1) + int(nombre_2)
+print("La somme de {} et {} est : {}".format(nombre_1, nombre_2, somme))
+print(f"La somme de {nombre_1} et {nombre_2} est égal à {somme}")
+print("Merci d'avoir utilisé le programme de somme !")
