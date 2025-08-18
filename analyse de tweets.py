@@ -43,7 +43,7 @@ if tweets.data:
     labels = ['Positif', 'Négatif', 'Neutre']
     sizes = [positive, negative, neutral]
     colors = ['#4CAF50', '#F44336', '#FFEB3B']
-    explode = (0.1, 0, 0)  
+    explode = (0.1, 0, 0)  # mettre en valeur le positif
 
     plt.pie(sizes, explode=explode, labels=labels, colors=colors,
             autopct='%1.1f%%', shadow=True, startangle=140)
