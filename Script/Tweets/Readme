@@ -1,1 +1,26 @@
+Analyse de sentiment de tweets
+
+Ce projet permet d’analyser le sentiment des tweets en français sur un mot-clé ou sujet précis, puis d’afficher les résultats sous forme de graphique en camembert.
+
+Fonctionnalités
+  1. Récupère les tweets récents en français via l’API Twitter/X v2.
+  2. Filtre les retweets pour analyser uniquement les tweets originaux.
+  3. Analyse le **sentiment** de chaque tweet (positif, négatif, neutre) grâce à **TextBlob**.
+  4. Affiche un **camembert** avec les proportions de sentiments.
+
+Prérequis
+  1. Python 3.x
+  2. Bibliothèques Python : tweepy, matplotlib, textblob
+  3. Un Bearer Token valide pour l’API v2 de Twitter/X.
+
+Exemple de fonctionnement
+Entrez le terme de recherche pour l'analyse des tweets : ballon d'or
+Le script récupère les 50 derniers tweets contenant “ballon d’or” en français et affiche le graphique avec la répartition :
+        Positif : 60%
+        Négatif : 25%
+        Neutre : 15%
+
+Notes
+    1. Limite de tweets : maximum 100 tweets par requête avec l’API v2 gratuite.
+    2. Analyse : TextBlob peut ne pas détecter correctement certains emojis ou expressions très informelles.
 
