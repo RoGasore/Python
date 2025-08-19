@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from textblob import TextBlob
 
 # Ton Bearer Token
-BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAANCP3gEAAAAA0o%2BdoO76Qm4rBTILKXJQmrEzJBk%3DJRrwBTJGU91APqUpYcG6fGB9l6rnIddcjRqvZWlgeISC4ruJ9M"
+BEARER_TOKEN = "TON BEARER TOKEN"
 
 client = tweepy.Client(bearer_token=BEARER_TOKEN)
 
