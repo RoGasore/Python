@@ -3,7 +3,7 @@ import shutil
 import yt_dlp
 from mutagen.easyid3 import EasyID3
 
-lien_playlist = "https://www.youtube.com/playlist?list=PLkqz3S84Tw-ScF_rKV6RALfLaUbViE_VX&si=ZlzWp_pF245axsIW"
+lien_playlist = "https://youtu.be/7CGKeID7nRc?si=zdYeeRXgL2zx7u1V"
 
 dossier_telechargement = "C:\\Users\\Rg\\Music\\test"
 dossier_final = "C:\\Users\\Rg\\Music\\test\\Org"
@@ -36,29 +36,33 @@ with yt_dlp.YoutubeDL(options) as ydl:
 
 print("Organisation des musiques...")
 
-#Organiser par artiste
-for fichier in os.path.join(dossier_telechargement) :
-    if fichier.endswith(".mp3") :
+# Organiser par artiste
+for fichier in os.listdir(dossier_telechargement):
+    if fichier.endswith(".mp3"):
         chemin = os.path.join(dossier_telechargement, fichier)
-        try: 
+        artiste = "Inconnu"
+        # Essayer d'obtenir l'artiste via les métadonnées
+        try:
             audio = EasyID3(chemin)
-            artiste = audio.get("artist", ["Inconnu"])[0].strip()
-        except Exception :
-            #si la chanson n'a pas de métadonnées, on essaie de deviner via "Artiste - titre"
-            if " - " in fichier:
-                artiste = fichier.split(" - ")[0]
-            else:
-                artiste = "Inconnu"
-            
+            artiste_meta = audio.get("artist", [None])[0]
+            if artiste_meta and artiste_meta.strip():
+                artiste = artiste_meta.strip()
+        except Exception:
+            pass
+        # Si pas de métadonnées, deviner via le nom du fichier
+        if artiste == "Inconnu" and " - " in fichier:
+            artiste = fichier.split(" - ")[0].strip()
+        # Nettoyer le nom de l'artiste
+        if not artiste:
+            artiste = "Inconnu"
         dossier_artiste = os.path.join(dossier_final, artiste)
         os.makedirs(dossier_artiste, exist_ok=True)
-        
         nouveau_chemin = os.path.join(dossier_artiste, fichier)
         if not os.path.exists(nouveau_chemin):
             shutil.move(chemin, nouveau_chemin)
             print(f"{fichier} déplacé vers {artiste}")
-        else :
-            os.remove(chemin) #pour eviter des doublons
+        else:
+            os.remove(chemin)  # pour éviter des doublons
             print(f"Doublon trouvé et supprimé : {fichier}")
 
-print("\n Tout est pret, ta playlist est bien rangée !")
+print("\nTout est prêt, ta playlist est bien rangée !")
