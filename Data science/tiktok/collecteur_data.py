@@ -24,35 +24,40 @@ hashtags = [
 ]
 data = []
 
+import asyncio
+# ...existing imports...
+
 def collect_data():
     print(f"[{datetime.now()}] : Debut de la collecte...")
+    data = []
     api = TikTokApi()
-    for tag in hashtags:
-        try:
-            videos = api.hashtag(name=tag).videos(count=20)  # Correction ici
-            for video in videos:
-                data.append({
-                    "hashtag": tag,
-                    "auteur": video.author.username,
-                    "description": video.desc,
-                    "likes": video.stats["diggCount"],
-                    "shares": video.stats["shareCount"],
-                    "commentaires": video.stats["commentCount"],
-                    "date_publication": datetime.fromtimestamp(video.create_time),
-                    "video_url": f"https://www.tiktok.com/@{video.author.username}/video/{video.id}"
-                })
-        except Exception as e:
-            print(f"Erreur sur le hashtag {tag} : {e}")
-    
-csv_file = "C:\\Users\\Rg\\Data science\\tiktok\\tiktok_data.csv"
-os.makedirs(os.path.dirname(csv_file), exist_ok=True)  # Ajouté ici
-
-df = pd.DataFrame(data)
-if os.path.exists(csv_file):
-    df.to_csv(csv_file, mode = 'a', header = False, index = False)
-else : 
-    df.to_csv(csv_file, index = False)
-print(f"[{datetime.now()}] Collecte terminée. {len(data)} videos ajoutées.")
+    async def fetch_videos():
+        for tag in hashtags:
+            try:
+                videos_gen = api.hashtag(name=tag).videos(count=20)
+                async for video in videos_gen:
+                    data.append({
+                        "hashtag": tag,
+                        "auteur": video.author.username,
+                        "description": video.desc,
+                        "likes": video.stats["diggCount"],
+                        "shares": video.stats["shareCount"],
+                        "commentaires": video.stats["commentCount"],
+                        "date_publication": datetime.fromtimestamp(video.create_time),
+                        "video_url": f"https://www.tiktok.com/@{video.author.username}/video/{video.id}"
+                    })
+            except Exception as e:
+                print(f"Erreur sur le hashtag {tag} : {e}")
+    asyncio.run(fetch_videos())
+    # ...suite du code...
+    csv_file = "C:\\Users\\Rg\\Data science\\tiktok\\tiktok_data.csv"
+    os.makedirs(os.path.dirname(csv_file), exist_ok=True)
+    df = pd.DataFrame(data)
+    if os.path.exists(csv_file):
+        df.to_csv(csv_file, mode = 'a', header = False, index = False)
+    else : 
+        df.to_csv(csv_file, index = False)
+    print(f"[{datetime.now()}] Collecte terminée. {len(data)} videos ajoutées.")
 
 def auto_commit() : 
     os.system('git add .')
