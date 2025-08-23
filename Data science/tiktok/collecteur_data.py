@@ -31,6 +31,7 @@ def collect_data():
     print(f"[{datetime.now()}] : Debut de la collecte...")
     data = []
     api = TikTokApi()
+    api.create_sessions()  # Ajout obligatoire pour TikTokApi >=v5
     async def fetch_videos():
         for tag in hashtags:
             try:
@@ -49,7 +50,7 @@ def collect_data():
             except Exception as e:
                 print(f"Erreur sur le hashtag {tag} : {e}")
     asyncio.run(fetch_videos())
-    # ...suite du code...
+
     csv_file = "C:\\Users\\Rg\\Data science\\tiktok\\tiktok_data.csv"
     os.makedirs(os.path.dirname(csv_file), exist_ok=True)
     df = pd.DataFrame(data)
