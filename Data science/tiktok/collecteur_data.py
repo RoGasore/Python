@@ -31,8 +31,8 @@ def collect_data():
     print(f"[{datetime.now()}] : Debut de la collecte...")
     data = []
     api = TikTokApi()
-    api.create_sessions()  # Ajout obligatoire pour TikTokApi >=v5
     async def fetch_videos():
+        await api.create_sessions()  # Correction ici : await
         for tag in hashtags:
             try:
                 videos_gen = api.hashtag(name=tag).videos(count=20)
