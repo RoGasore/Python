@@ -3,10 +3,10 @@ import shutil
 import yt_dlp
 from mutagen.easyid3 import EasyID3
 
-lien_playlist = "https://youtu.be/7CGKeID7nRc?si=zdYeeRXgL2zx7u1V"
+lien_playlist = "" #lien de la playlist
 
-dossier_telechargement = "C:\\Users\\Rg\\Music\\test"
-dossier_final = "C:\\Users\\Rg\\Music\\test\\Org"
+dossier_telechargement = "" #dossier de téléchargement
+dossier_final = "" #dossier final
 
 os.makedirs(dossier_telechargement, exist_ok=True)
 os.makedirs(dossier_final, exist_ok=True)

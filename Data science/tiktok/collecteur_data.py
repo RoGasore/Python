@@ -51,7 +51,7 @@ def collect_data():
                 print(f"Erreur sur le hashtag {tag} : {e}")
     asyncio.run(fetch_videos())
 
-    csv_file = "C:\\Users\\Rg\\Data science\\tiktok\\tiktok_data.csv"
+    csv_file = "tiktok_data.csv" #change le  nom ou l'emplacement du fichier
     os.makedirs(os.path.dirname(csv_file), exist_ok=True)
     df = pd.DataFrame(data)
     if os.path.exists(csv_file):

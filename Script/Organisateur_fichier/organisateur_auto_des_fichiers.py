@@ -10,7 +10,7 @@ def barre_progression(actuel, total):
     sys.stdout.write(f"\rProgression: [{barre}] {pourcent}% ({actuel}/{total})")
     sys.stdout.flush()
 
-dossier = "c:\\Users\\Rg\\Documents" # Dossier à organiser
+dossier = "" # Dossier à organiser
 
 categories = {
     "PDFs": [".pdf", ".PDF"],
